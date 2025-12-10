@@ -1,0 +1,7 @@
+{
+  "name": "VISIT ALESUND",
+  "description": "",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
