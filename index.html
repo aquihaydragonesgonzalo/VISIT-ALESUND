@@ -104,7 +104,7 @@
         const SHIP_DEPARTURE_TIME = "17:00";
         const ARRIVAL_TIME = "07:00";
         const ONBOARD_TIME = "16:30";
-        const UPDATE_DATE = "13 de mayo de 2026";
+        const UPDATE_DATE = "10 de diciembre de 2025";
         
         // Coordinates from PDF Page 3
         const COORDS = {
@@ -259,6 +259,34 @@
             { word: 'Takk', phonetic: '/tak/', simplified: 'TAK', meaning: 'Gracias' },
         ];
 
+        const ALNES_AUDIO_GUIDE = [
+            {
+                id: 'alnes_1',
+                title: '1. Introducción y El Viaje',
+                text: "Bienvenidos, viajeros. Si miran hacia el horizonte, donde el mar parece no tener fin, están a punto de conocer uno de los símbolos más queridos de la costa oeste noruega: el Faro de Alnes.\n\nPara llegar aquí, hemos dejado atrás las calles de Ålesund y hemos viajado a través de túneles submarinos y puentes hasta llegar a la isla de Godøya. Fíjense en el paisaje que nos rodea. Ya no estamos protegidos por las tranquilas aguas del interior del fiordo; aquí, estamos a las puertas del Mar de Noruega."
+            },
+            {
+                id: 'alnes_2',
+                title: '2. Arquitectura y Resistencia',
+                text: "Ante ustedes se alza una estructura inconfundible. A diferencia de muchos faros que son torres redondas de piedra o metal, el Faro de Alnes destaca por su arquitectura de madera y su peculiar forma cuadrada. Sus franjas rojas y blancas no son solo una elección estética; fueron diseñadas para ser vistas claramente por los pescadores entre la densa niebla y la espuma de las olas durante los duros inviernos nórdicos."
+            },
+            {
+                id: 'alnes_3',
+                title: '3. Historia (1852 - Hoy)',
+                text: "La historia de este lugar se remonta a 1852. Imaginen por un momento la vida aquí hace casi dos siglos. Esta zona era vital para la pesca del arenque y el bacalao, pero también era traicionera. El faro original era modesto, apenas una lámpara de aceite, pero suficiente para guiar a los marineros de vuelta a casa sanos y salvos. La torre que ven hoy se construyó en 1876 y ha sido modernizada con el tiempo, pero su alma permanece intacta.\n\nHoy en día, el faro está totalmente automatizado, pero sigue cumpliendo una doble función: guía para los barcos y refugio cultural para nosotros, los visitantes."
+            },
+            {
+                id: 'alnes_4',
+                title: '4. La Experiencia y El Secreto',
+                text: "Os invito a acercaros y, si se sienten con energía, a subir las empinadas escaleras de madera hasta la cima de la torre. La recompensa es una vista panorámica de 360 grados: por un lado, las majestuosas montañas de los Alpes de Sunnmøre; por el otro, la inmensidad del océano Atlántico. Es un lugar perfecto para sentir la fuerza de la naturaleza.\n\nY antes de irnos, un pequeño secreto local: no dejen de visitar la antigua casa del farero, justo al lado de la torre. Hoy funciona como una cafetería y galería de arte. Es casi una tradición obligatoria probar sus famosos pasteles caseros o las 'sveler' (una especie de tortita noruega) mientras se refugian del viento."
+            },
+            {
+                id: 'alnes_5',
+                title: '5. Despedida',
+                text: "El Faro de Alnes no es solo una luz en la oscuridad; es un testimonio de la resistencia y la cultura costera de Noruega. Tómense su tiempo, respiren el aire salado y disfruten de este rincón del mundo donde el cielo se funde con el mar."
+            }
+        ];
+
         // --- UTILS ---
         const calculateDistance = (c1, c2) => {
             if(!c1 || !c2) return 0;
@@ -340,9 +368,13 @@
             };
             
             // Determine which audio guide to use (if any)
-            // Currently no audio data provided for Alesund in PDF, keeping structure for future use.
             let audioData = null;
             let audioTitle = "";
+            
+            if (activity.id === '5') {
+                audioData = ALNES_AUDIO_GUIDE;
+                audioTitle = "Audioguía: El Guardián de Godøya";
+            }
             
             return (
                 <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
@@ -499,7 +531,7 @@
                             const isCritical = act.notes === 'CRITICAL';
                             const isDeparture = act.title.includes('ZARPA');
                             const duration = calculateDuration(act.startTime, act.endTime);
-                            const hasAudio = false; // No audio data for Alesund yet
+                            const hasAudio = act.id === '5';
                             
                             // Calculate Gap to next activity
                             let gapElement = null;
@@ -632,7 +664,7 @@
                         <div className="text-center py-8 text-slate-400 text-xs mt-4">
                             <p className="font-medium">Ålesund Guide 2026</p>
                             <p>Actualizado el {UPDATE_DATE}</p>
-                            <p className="mt-1">© 2026 - Guía Personalizada</p>
+                            <p className="mt-1">© 2025 - 2026 Gonzalo Arenas de la Hoz</p>
                         </div>
                     </div>
                 </div>
@@ -1190,7 +1222,7 @@
                      <div className="text-center py-8 text-slate-400 text-xs">
                         <p className="font-medium">Ålesund Guide 2026</p>
                         <p>Actualizado el {UPDATE_DATE}</p>
-                        <p className="mt-1">© 2026 - Guía Personalizada</p>
+                        <p className="mt-1">© 2025 - 2026 Gonzalo Arenas de la Hoz</p>
                     </div>
                 </div>
             );
